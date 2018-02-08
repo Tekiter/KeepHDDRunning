@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:KeepHDDRunning">
+    <DataTemplate x:Key="DriveItemTemplate" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding Icon}" Grid.Column="0" Width="32" Height="32" Margin="2"/>
+            <TextBlock Text="{Binding Name,FallbackValue=C:\\}" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        </Grid>
+    </DataTemplate>
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFEBEBEB"/>
+
+</ResourceDictionary>
