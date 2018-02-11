@@ -22,10 +22,10 @@ namespace KeepHDDRunning
     /// </summary>
     public partial class WorkingWindow : Window
     {
-        public Drive SelectedDrive { get; set; }
+        public Folder SelectedFolder { get; set; }
         public int Interval { get; set; }
-        public object DriveIcon { get => SelectedDrive.Icon; }
-        public string DriveName { get => SelectedDrive.Name; }
+        public object FolderIcon { get => SelectedFolder.Icon; }
+        public string FolderName { get => SelectedFolder.Name; }
 
         Thread workingThread;
         bool isRunning = true;
@@ -37,9 +37,9 @@ namespace KeepHDDRunning
             workingThread = new Thread(new ThreadStart(Work));
         }
 
-        public WorkingWindow(Drive drive, int interval) : this()
+        public WorkingWindow(Folder folder, int interval) : this()
         {
-            SelectedDrive = drive;
+            SelectedFolder = folder;
             Interval = interval;
         }
 
@@ -48,7 +48,7 @@ namespace KeepHDDRunning
             //isRunning = false;
             
             workingThread.Abort();
-            MainWindow window = new MainWindow();
+            MainWindow window = new MainWindow(SelectedFolder);
             window.Show();
             Close();
         }
@@ -68,7 +68,7 @@ namespace KeepHDDRunning
         {
             while (isRunning)
             {
-                AccessDirs(SelectedDrive.Name);
+                AccessDirs(SelectedFolder.Path);
             }
         }
 

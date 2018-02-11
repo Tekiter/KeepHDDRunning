@@ -1,34 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Media.Imaging;
-using System.Windows.Interop;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace KeepHDDRunning
 {
-    public class Drive
+    public class Folder
     {
+        public bool Exists => info.Exists;
+        public string Path => info.FullName;
         public string Name { get; set; }
-        public object Icon
+        public object Icon => Imaging.CreateBitmapSourceFromHIcon(GetLargeIcon(Path).Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+        public FileAttributes Attributes => info.Attributes; 
+
+        DirectoryInfo info;
+
+        public Folder(string path)
         {
-            get
-            {
-                return Imaging.CreateBitmapSourceFromHIcon(GetLargeIcon(Name).Handle,Int32Rect.Empty,BitmapSizeOptions.FromEmptyOptions());
-            }
+            info = new DirectoryInfo(path);
+            Name = info.Name;
         }
 
-        
-
-
-        public Drive(string name)
+        public override string ToString()
         {
-            Name = name;
+            return info.Name;
         }
+
 
         #region GetIcon
         [StructLayout(LayoutKind.Sequential)]
@@ -72,6 +77,5 @@ namespace KeepHDDRunning
             return icon;
         }
         #endregion
-
     }
 }

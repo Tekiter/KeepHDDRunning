@@ -22,49 +22,53 @@ namespace KeepHDDRunning
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Drive> drivelist;
+        
 
-        public ObservableCollection<Drive> DriveList { get => drivelist; set => drivelist = value; }
+       
+        Folder SelectedFolder;
 
         public MainWindow()
         {
             InitializeComponent();
-            
             DataContext = this;
-            DriveList = new ObservableCollection<Drive>();
-            UpdateDriveList();
+            SelectedFolder = new Folder( DriveInfo.GetDrives()[0].Name);
+        }
+
+        public MainWindow(Folder StartingFolder) : this()
+        {
+            SelectedFolder = StartingFolder;
+
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            StartWorking();
-        }
-
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateDriveList();
-        }
-
-        void UpdateDriveList()
-        {
-            DriveList = new ObservableCollection<Drive>();
-
-            DriveInfo[] info = DriveInfo.GetDrives();
-            foreach (var i in info)
+            if (SelectedFolder.Exists && int.TryParse(TextBox_Interval.Text,out int result))
             {
-                if (i.DriveType == DriveType.Fixed || i.DriveType == DriveType.Removable)
-                {
-                    Drive drive = new Drive(i.Name);
-                    DriveList.Add(drive);
-                }
+                WorkingWindow ww = new WorkingWindow(SelectedFolder, result);
+                ww.Show();
+                Close();
             }
         }
 
-        void StartWorking()
+        private void Change_Click(object sender, RoutedEventArgs e)
         {
-            WorkingWindow window = new WorkingWindow(List_Drives.SelectedItem as Drive, int.Parse(TextBox_Interval.Text));
-            window.Show();
-            Close();
+            SelectFolderDialog dia = new SelectFolderDialog();
+            if (dia.ShowDialog() == true)
+            {
+                SelectedFolder = new Folder(dia.SelectedFolder);
+                UpdateFolderInfo();
+            }
+        }
+
+        void UpdateFolderInfo()
+        {
+            Image_Icon.Source = (ImageSource)SelectedFolder.Icon;
+            TextBlock_Folder.Text = SelectedFolder.Name;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateFolderInfo();
         }
     }
 }

@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeepHDDRunning"
         mc:Ignorable="d"
-        Title="KeepHDDRunning" Height="205.731" Width="221.952" Background="{StaticResource WindowBackgroundBrush}">
+        Title="KeepHDDRunning" Height="161.731" Width="225.952" Background="{StaticResource WindowBackgroundBrush}" Loaded="Window_Loaded">
     <Grid>
-        <TextBlock Text="Select a drive" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="7,5,0,0"/>
-        <ListBox x:Name="List_Drives" Margin="7,21,62.2,28" ItemsSource="{Binding DriveList}" ItemTemplate="{DynamicResource DriveItemTemplate}"/>
-        <Button Content="Update" VerticalAlignment="Top" HorizontalAlignment="Right" Width="53" Margin="0,21,5,0" Click="Update_Click"/>
+        <TextBlock Text="Select a Folder" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,0,0" FontSize="14" Foreground="#FF1D5F9C"/>
+        <Image x:Name="Image_Icon" VerticalAlignment="Top" HorizontalAlignment="Left" Height="32" Width="32" Margin="10,29,0,0"/>
+        <TextBlock x:Name="TextBlock_Folder" Margin="49,40,10.2,29" FontSize="14" TextWrapping="Wrap"/>
+        <Button Content="Change" Width="52" Margin="0,6,5.6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Change_Click"/>
         <TextBlock Text="Interval :" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="7,0,0,7"/>
-        <TextBox x:Name="TextBox_Interval" Text="5000" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="59,0,0,5"/>
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start" Margin="0,0,5.2,5" Width="52" Click="Start_Click" Height="26"/>
+        <TextBox x:Name="TextBox_Interval" Text="5000" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="59,0,0,6"/>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start" Margin="0,0,5.2,5" Width="52" Click="Start_Click" Height="18"/>
     </Grid>
 </Window>
