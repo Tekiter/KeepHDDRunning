@@ -68,9 +68,18 @@ namespace KeepHDDRunning
         {
             while (isRunning)
             {
-                string[] path = Directory.GetDirectories(SelectedDrive.Name);
-                Debug.WriteLine("Flash!");
-                Thread.Sleep(Interval); 
+                AccessDirs(SelectedDrive.Name);
+            }
+        }
+
+        void AccessDirs(string path)
+        {
+            string[] dirs = Directory.GetDirectories(path);
+            foreach (var i in dirs)
+            {
+                Thread.Sleep(Interval);
+                Debug.WriteLine(i);
+                AccessDirs(i);
             }
         }
 
