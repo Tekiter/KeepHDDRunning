@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeepHDDRunning"
         mc:Ignorable="d"
-        Title="Select Folder" Height="332.43" Width="378.136" Loaded="Window_Loaded" WindowStyle="ToolWindow" ResizeMode="CanResizeWithGrip">
+        Title="Select Folder" Height="359.997" Width="682.999" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" SourceInitialized="Window_SourceInitialized">
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

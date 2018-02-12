@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -169,6 +171,27 @@ namespace KeepHDDRunning
         {
             DialogResult = false;
         }
+
+
+        #region DisableCloseButton
+        [DllImport("user32.dll")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        private const int GWL_STYLE = -16;
+        private const int WS_MINIMIZEBOX = 0x20000;
+
+        private void Window_SourceInitialized(object sender, EventArgs e)
+        {
+            IntPtr handle = new WindowInteropHelper(this).Handle;
+            if (handle != null)
+            {
+                SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MINIMIZEBOX);
+            }
+        }
+        #endregion
+
+
     }
 
     
